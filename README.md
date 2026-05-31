@@ -1,4 +1,4 @@
-# rivals-scout
+# RivalsScout
 
 A scouting tool for Marvel Rivals that pulls player stats — rank, peak rank, and recent hero performance — from a variety of sources.
 
