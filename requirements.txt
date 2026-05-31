@@ -1,0 +1,7 @@
+jinja2
+numpy
+opencv-python
+pillow
+playwright
+pytesseract
+python-dotenv

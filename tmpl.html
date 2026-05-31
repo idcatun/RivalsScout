@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    html {
+      align-items: center;
+      background-color: #1f2227;
+      color: #abb2bf;
+      display: flex;
+      justify-content: space-evenly;
+      min-height: 100%;
+      text-align: center;
+    }
+
+    body {
+      padding: 2rem;
+    }
+
+    .row {
+      display: flex;
+    }
+
+    .header {
+      font-weight: bold;
+    }
+
+    .stats {
+      display: flex;
+      flex-direction: column;
+      font-family: monospace;
+      font-size: 0.8rem;
+      gap: 0.25rem;
+      width: 3.5rem;
+    }
+
+    .rank-icon {
+      aspect-ratio: 1/1;
+      background-position: top;
+      background-size: 120%;
+    }
+
+    .var-text {
+      margin: 0 0.2rem;
+      max-width: 100%;
+    }
+
+    .name {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      width: 6rem;
+      padding: 0.5rem;
+    }
+
+    .private-True {
+      color: #e06c75;
+    }
+
+    .private-False {
+      color: inherit;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="row header">
+    <div class="stats">peak</div>
+    <div class="stats">current</div>
+  </div>
+  {% for player in players %}
+  <div class="row">
+    {% for rank in [player.peak, player.current] %}
+    <div class="stats">
+      <div class="rank-icon" style="background-image: url({{ rank.icon }})"></div>
+      <div class="var-text">{{ rank.name }}</div>
+    </div>
+    {% endfor %}
+    <a class="name private-{{ player.private }}"
+      href="https://tracker.gg/marvel-rivals/profile/ign/{{ player.name }}/overview">
+      <div class="var-text">{{ player.name }}</div>
+    </a>
+    {% for hero_id, hero in player.heroes %}
+    <div class="stats">
+      <img width="100%" title="{{ hero.name }}"
+        src="https://trackercdn.com/cdn/tracker.gg/marvel-rivals/images/heroes/square/{{ (hero_id | string)[:4] }}.png">
+      <div class="var-text">{{ hero.wins }}/{{ hero.total }}</div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+  <script>
+    for (const elem of document.getElementsByClassName("var-text")) {
+      const scale = elem.clientWidth / elem.scrollWidth;
+      if (scale < 1) {
+        elem.style["font-size"] = `${scale * 100}%`;
+      }
+    }
+  </script>
+</body>
+
+</html>
